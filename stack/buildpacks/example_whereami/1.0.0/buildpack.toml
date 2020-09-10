@@ -1,0 +1,7 @@
+api = "0.2"
+
+[buildpack]
+id = "example/whereami"
+version = "1.0.0"
+name = "Where Am I Buildpack"
+privileged = true

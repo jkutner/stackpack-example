@@ -1,0 +1,15 @@
+[stack]
+id = "stackpack-18"
+build-image = "stackpack-example:18"
+run-image = "stackpack-example:18"
+
+[lifecycle]
+uri = "lifecycle-v0.9.1+linux.x86-64.tgz"
+
+[[buildpacks]]
+  id = "jkutner/null"
+  uri = "buildpacks/jkutner_null"
+
+[[order]]
+  [[order.group]]
+    id = "jkutner/null"
