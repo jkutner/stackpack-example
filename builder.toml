@@ -4,12 +4,25 @@ build-image = "stackpack-example:18"
 run-image = "stackpack-example:18"
 
 [lifecycle]
-uri = "lifecycle-v0.9.1+linux.x86-64.tgz"
+uri = "/Users/jesse.brown/dev/buildpacks/lifecycle/out/lifecycle-v0.9.1+linux.x86-64.tgz"
 
 [[buildpacks]]
   id = "jkutner/null"
   uri = "buildpacks/jkutner_null"
 
+[[buildpacks]]
+  id = "cacert"
+  uri = "buildpacks/cacert"
+
+[[order]]
+  [[order.group]]
+    id = "cacert"
+    optional = false
+  [[order.group]]
+    id = "jkutner/null"
+    optional = true
+
 [[order]]
   [[order.group]]
     id = "jkutner/null"
+    optional = true

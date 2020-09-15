@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+set -e
+set -o pipefail
+
+layers_dir=$1
+
+echo "running null Buildpack"
+id
+
+    cat <<TOML > "$layers_dir/launch.toml"
+[[processes]]
+type = "null"
+command = "echo hello-from-null"
+
+[[processes]]
+type = "null2"
+command = "/usr/bin/whereami"
+TOML
+exit 0
+
+mkdir -p "$layers_dir/idkman"
+echo "hello" > "$layers_dir/idkman/some_file.txt"

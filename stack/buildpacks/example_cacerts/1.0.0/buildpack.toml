@@ -1,0 +1,7 @@
+api = "0.2"
+
+[buildpack]
+id = "example/cacerts"
+version = "1.0.0"
+name = "cacerts Stack Buildpack"
+privileged = true

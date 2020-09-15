@@ -1,0 +1,16 @@
+api = "0.2"
+
+[buildpack]
+id = "cacert"
+version = "0.1"
+name = "cacert"
+
+[[stacks]]
+id = "io.buildpacks.stacks.bionic"
+
+[[stacks]]
+id = "heroku-18"
+
+
+[[stacks]]
+id = "stackpack-18"

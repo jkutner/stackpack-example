@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+echo "detecting cacert Buildpack"
+id
+
+cat << EOF > $2
+[[requires]]
+name = "cacert"
+
+[requires.metadata]
+file = "server.crt"
+content = """
+$(cat $CNB_BUILDPACK_DIR/server.crt)
+"""
+EOF
+
+exit 0

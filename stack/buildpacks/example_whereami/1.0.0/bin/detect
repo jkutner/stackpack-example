@@ -1,3 +1,6 @@
 #!/bin/bash
+echo "detecting whereami Stack Buildpack"
+id
+
 
 exit 0

@@ -1,7 +1,28 @@
-#!/bin/bash
+#!/usr/bin/env bash
+echo "building whereami Stack Buildpack"
+id
+
+set -e
+set -o pipefail
+
+layers_dir=$1
+
+FILE=/usr/bin/whereami
+if test -f "$FILE"; then
+    echo "$FILE exists from cache!"
+    exit 0
+fi
 
 echo "Adding whereami command"
-echo "pwd" > /usr/bin/whereami
+echo "echo hello-from-where-am-i" > /usr/bin/whereami
 chmod +x /usr/bin/whereami
+
+    cat <<TOML > "$layers_dir/launch.toml"
+[[processes]]
+type = "whereami"
+command = "/usr/bin/whereami"
+TOML
+
+
 
 exit 0

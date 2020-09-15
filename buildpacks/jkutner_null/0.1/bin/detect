@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+echo "detecting null Buildpack"
+id
+exit 0

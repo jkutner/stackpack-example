@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+echo "building cacert Buildpack"
+id
+
+set -e
+set -o pipefail
+
+layers_dir=$1
+
+layer_dir="$layers_dir/somelayer"
+mkdir -p $layer_dir
+
+echo "cache = true" > "${layer_dir}.toml"
+echo "build = true" >> "${layer_dir}.toml"
+echo "launch = false" >> "${layer_dir}.toml"
+
+# TODO: check for presence and log
+echo "hi from cache" > "$layer_dir/somefile"
+
+exit 0

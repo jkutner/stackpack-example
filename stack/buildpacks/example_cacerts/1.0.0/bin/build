@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+echo "building example/cacerts Stack Buildpack"
+id
+
+curl -Ls https://github.com/sclevine/yj/releases/download/v2.0/yj-linux > "/usr/local/bin/yj" \
+      && chmod +x "/usr/local/bin/yj"
+
+for file in $(cat $3 | yj -t | jq -r ".entries | .[] | select(.name==\"cacert\") | .metadata | .file"); do
+ cert="$(cat $3 | yj -t | jq -r ".entries | .[] | select(.name==\"cacert\") | .metadata | select(.file==\"$file\") | .content")"
+ echo $cert > /usr/local/share/ca-certificates/$file
+ chmod 644 /usr/local/share/ca-certificates/$file
+done
+
+update-ca-certificates
+
+exit 0

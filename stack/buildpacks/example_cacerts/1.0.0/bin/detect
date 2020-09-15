@@ -1,0 +1,10 @@
+#!/bin/bash
+echo "detecting example/cacerts Stack Buildpack"
+id
+
+cat << EOF > $2
+[[provides]]
+name = "cacert"
+EOF
+
+exit 0
