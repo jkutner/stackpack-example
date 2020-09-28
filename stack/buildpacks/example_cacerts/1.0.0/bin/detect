@@ -5,6 +5,7 @@ id
 cat << EOF > $2
 [[provides]]
 name = "cacert"
+mixin = true
 EOF
 
 exit 0

@@ -5,6 +5,7 @@ id
 cat << EOF > $2
 [[requires]]
 name = "cacert"
+mixin = true
 
 [requires.metadata]
 file = "server.crt"
