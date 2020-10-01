@@ -10,7 +10,3 @@ id = "io.buildpacks.stacks.bionic"
 
 [[stacks]]
 id = "heroku-18"
-
-
-[[stacks]]
-id = "stackpack-18"

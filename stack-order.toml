@@ -1,0 +1,13 @@
+[[order]]
+
+  # [[order.group]]
+  #   id = "example/whereami"
+  #   version = "1.0.0"
+  #   optional = true
+  #   privileged = true
+
+  [[order.group]]
+    id = "example/cacerts"
+    version = "1.0.0"
+    optional = true
+    privileged = true

@@ -1,7 +1,3 @@
-.PHONY: build-stack
-build-stack:
-	@docker build . -t stackpack-example:18
-
 .PHONY: clean
 clean:
 	docker volume rm stackpack-example-layers --force
@@ -18,9 +14,10 @@ detect: clean
 		-v "$$(pwd)/stack/buildpacks":/cnb/stack/buildpacks \
 		-v "$$(pwd)/buildpacks":/cnb/buildpacks \
 		-v "$$(pwd)/order.toml":/cnb/order.toml \
+		-v "$$(pwd)/stack-order.toml":/cnb/stack/order.toml \
 		-v /Users/jesse.brown/dev/buildpacks/lifecycle/out/linux/lifecycle/lifecycle:/cnb/lifecycle/lifecycle \
 		-v /Users/jesse.brown/dev/heroku/go-getting-started:/workspace \
-		stackpack-builder /cnb/lifecycle/detector -log-level debug
+		heroku/buildpacks /cnb/lifecycle/detector -log-level debug
 
 .PHONY: analyze
 analyze:
@@ -31,10 +28,11 @@ analyze:
 		-v "$$(pwd)/stack/buildpacks":/cnb/stack/buildpacks \
 		-v "$$(pwd)/buildpacks":/cnb/buildpacks \
 		-v "$$(pwd)/order.toml":/cnb/order.toml \
+		-v "$$(pwd)/stack-order.toml":/cnb/stack/order.toml \
 		-v /Users/jesse.brown/dev/buildpacks/lifecycle/out/linux/lifecycle/lifecycle:/cnb/lifecycle/lifecycle \
 		-v /Users/jesse.brown/dev/heroku/go-getting-started:/workspace \
 		-v /var/run/docker.sock:/var/run/docker.sock \
-		stackpack-builder /cnb/lifecycle/analyzer -log-level debug -daemon -cache-dir /cache myimg
+		heroku/buildpacks /cnb/lifecycle/analyzer -log-level debug -daemon -cache-dir /cache myimg
 
 .PHONY: restore
 restore:
@@ -45,9 +43,10 @@ restore:
 		-v "$$(pwd)/stack/buildpacks":/cnb/stack/buildpacks \
 		-v "$$(pwd)/buildpacks":/cnb/buildpacks \
 		-v "$$(pwd)/order.toml":/cnb/order.toml \
+		-v "$$(pwd)/stack-order.toml":/cnb/stack/order.toml \
 		-v /Users/jesse.brown/dev/buildpacks/lifecycle/out/linux/lifecycle/lifecycle:/cnb/lifecycle/lifecycle \
 		-v /Users/jesse.brown/dev/heroku/go-getting-started:/workspace \
-		stackpack-builder /cnb/lifecycle/restorer -log-level debug -cache-dir /cache
+		heroku/buildpacks /cnb/lifecycle/restorer -log-level debug -cache-dir /cache
 
 .PHONY: build
 build:
@@ -58,9 +57,10 @@ build:
 		-v "$$(pwd)/stack/buildpacks":/cnb/stack/buildpacks \
 		-v "$$(pwd)/buildpacks":/cnb/buildpacks \
 		-v "$$(pwd)/order.toml":/cnb/order.toml \
+		-v "$$(pwd)/stack-order.toml":/cnb/stack/order.toml \
 		-v /Users/jesse.brown/dev/buildpacks/lifecycle/out/linux/lifecycle/lifecycle:/cnb/lifecycle/lifecycle \
 		-v /Users/jesse.brown/dev/heroku/go-getting-started:/workspace \
-		stackpack-builder /cnb/lifecycle/builder -log-level debug
+		heroku/buildpacks /cnb/lifecycle/builder -log-level debug
 
 .PHONY: export
 export:
@@ -71,10 +71,11 @@ export:
 		-v "$$(pwd)/stack/buildpacks":/cnb/stack/buildpacks \
 		-v "$$(pwd)/buildpacks":/cnb/buildpacks \
 		-v "$$(pwd)/order.toml":/cnb/order.toml \
+		-v "$$(pwd)/stack-order.toml":/cnb/stack/order.toml \
 		-v /Users/jesse.brown/dev/buildpacks/lifecycle/out/linux/lifecycle/lifecycle:/cnb/lifecycle/lifecycle \
 		-v /Users/jesse.brown/dev/heroku/go-getting-started:/workspace \
 		-v /var/run/docker.sock:/var/run/docker.sock \
-		stackpack-builder /cnb/lifecycle/exporter -log-level debug -daemon -cache-dir /cache myimg
+		heroku/buildpacks /cnb/lifecycle/exporter -log-level debug -daemon -cache-dir /cache myimg
 
 .PHONY: create
 create: clean
@@ -85,10 +86,11 @@ create: clean
 		-v "$$(pwd)/stack/buildpacks":/cnb/stack/buildpacks \
 		-v "$$(pwd)/buildpacks":/cnb/buildpacks \
 		-v "$$(pwd)/order.toml":/cnb/order.toml \
+		-v "$$(pwd)/stack-order.toml":/cnb/stack/order.toml \
 		-v /Users/jesse.brown/dev/buildpacks/lifecycle/out/linux/lifecycle/lifecycle:/cnb/lifecycle/lifecycle \
 		-v /Users/jesse.brown/dev/heroku/go-getting-started:/workspace \
 		-v /var/run/docker.sock:/var/run/docker.sock \
-		stackpack-builder /cnb/lifecycle/creator -log-level debug -daemon -cache-dir /cache myimg
+		heroku/buildpacks /cnb/lifecycle/creator -log-level debug -daemon -cache-dir /cache myimg
 
 .PHONY: run
 run:
@@ -104,7 +106,7 @@ run:
 		-v /var/run/docker.sock:/var/run/docker.sock \
 		-v docker:/root/.docker/ \
 		-v docker:/heroku/.docker/ \
-		stackpack-builder
+		heroku/buildpacks
 
 .PHONY: clean-build
 clean-build: clean-all detect build export
